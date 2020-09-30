@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "projectName": {
+      "type": "string",
+      "metadata": {
+        "description": "Project name"
+      },
+      "minLength": 3,
+      "maxLength": 11
+    },
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "Location for project"
+      },
+      "defaultValue": "[resourceGroup().location]"
+    }
+  },
+  "functions": [],
+  "variables": {
+    "logicAppName": "[concat(parameters('projectName'), '-logicApp')]"
+  },
+  "resources": [
+    {
+      "name": "[variables('logicAppName')]",
+      "type": "Microsoft.Logic/workflows",
+      "apiVersion": "2017-07-01",
+      "location": "[parameters('location')]",
+      "properties": {
+        // definition for logic app will be generated and pasted here from logic app designer
+        "definition": {
+          "$schema": "https://schema.management.azure.com/schemas/2016-06-01/Microsoft.Logic.json",
+          "contentVersion": "1.0.0.0",
+          "parameters": {},
+          "triggers": {},
+          "actions": {},
+          "outputs": {}
+        },
+        "parameters": {}
+      }
+    }
+  ],
+  "outputs": {}
+}
