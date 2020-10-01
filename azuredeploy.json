@@ -45,6 +45,7 @@
     },
     {
       "name": "[variables('eventBusNameSpace')]",
+      "resourceGroup": "jiveServiceBus",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-10-01",
       "properties": {

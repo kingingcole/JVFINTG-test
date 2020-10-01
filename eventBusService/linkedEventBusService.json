@@ -24,7 +24,7 @@
     }
   },
   "variables": {
-    "serviceBusNamespaceName": "[concat(parameters('projectName'), '-linkedServiceBus')]"
+    "serviceBusNamespaceName": "[concat(parameters('projectName'), '-linkedServiceBus-2')]"
   },
   "resources": [
     {
