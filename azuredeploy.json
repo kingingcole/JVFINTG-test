@@ -21,8 +21,14 @@
   "functions": [],
   "variables": {
     "logicAppName": "[concat(parameters('projectName'), '-logicApp')]",
-    "eventBusResourceUri": "https://raw.githubusercontent.com/kingingcole/JVFINTG-test/JVFINTG-4709/eventBusService/linkedEventBusService.json",
-    "eventBusNameSpace": "linkedEventBus"
+    "linkedTemplates": {
+      "eventBusService": {
+        "name": "linkedEventBus",
+        "resourceGroup": "jiveServiceBus",
+        "templateUri": "https://raw.githubusercontent.com/kingingcole/JVFINTG-test/JVFINTG-4709/eventBusService/linkedEventBusService.json",
+        "parameterUri": "https://raw.githubusercontent.com/kingingcole/JVFINTG-test/JVFINTG-4709/eventBusService/linkedEventBusService.parameters.json"
+      }
+    }
   },
   "resources": [
     {
@@ -44,17 +50,17 @@
       }
     },
     {
-      "name": "[variables('eventBusNameSpace')]",
-      "resourceGroup": "jiveServiceBus",
+      "name": "[variables('linkedTemplates').eventBusService.name]",
+      "resourceGroup": "[variables('linkedTemplates').eventBusService.resourceGroup]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-10-01",
       "properties": {
         "mode": "Incremental",
         "parametersLink": {
-          "uri": "https://raw.githubusercontent.com/kingingcole/JVFINTG-test/JVFINTG-4709/eventBusService/linkedEventBusService.parameters.json"
+          "uri": "[variables('linkedTemplates').eventBusService.templateUri]"
         },
         "templateLink": {
-          "uri": "[variables('eventBusResourceUri')]",
+          "uri": "[variables('linkedTemplates').eventBusService.templateUri]",
           "contentVersion": "1.0.0.0"
         }
       }
