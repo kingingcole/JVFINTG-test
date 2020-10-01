@@ -22,7 +22,7 @@
   "variables": {
     "logicAppName": "[concat(parameters('projectName'), '-logicApp')]",
     "eventBusResourceUri": "https://raw.githubusercontent.com/kingingcole/JVFINTG-test/JVFINTG-4709/eventBusService/linkedEventBusService.json",
-    "eventBusNameSpace": "[concat(parameters('projectName'), '-eventBus')]"
+    "eventBusNameSpace": "linkedEventBus"
   },
   "resources": [
     {
@@ -44,7 +44,7 @@
       }
     },
     {
-      "name": "[concat('linked', variables('eventBusNameSpace'))]",
+      "name": "[variables('eventBusNameSpace')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-10-01",
       "properties": {
@@ -55,11 +55,6 @@
         "templateLink": {
           "uri": "[variables('eventBusResourceUri')]",
           "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "projectName": "[parameters('projectName')]",
-          "serviceBusSku": "Basic",
-          "location": "[parameters('location')]"
         }
       }
     }
