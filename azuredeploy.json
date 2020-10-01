@@ -57,7 +57,7 @@
       "properties": {
         "mode": "Incremental",
         "parametersLink": {
-          "uri": "[variables('linkedTemplates').eventBusService.templateUri]"
+          "uri": "[variables('linkedTemplates').eventBusService.parameterUri]"
         },
         "templateLink": {
           "uri": "[variables('linkedTemplates').eventBusService.templateUri]",
