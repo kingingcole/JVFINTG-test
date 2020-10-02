@@ -1,0 +1,74 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "projectName": {
+      "type": "string",
+      "metadata": {
+        "description": "description"
+      }
+    },
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "Location for all resources."
+      },
+      "defaultValue": "[resourceGroup().location]"
+    },
+    "serviceBusNamespaceName": {
+      "type": "string",
+      "metadata": {
+        "description": "description"
+      },
+      "defaultValue": "[concat(parameters('projectName'), '-eventBus')]"
+    },
+    "eventGridSubscriptionName": {
+      "type": "string",
+      "metadata": {
+        "description": "description"
+      }
+    },
+    "serviceBusQueueName": {
+        "type": "string",
+        "metadata": {
+            "description": "description"
+        }
+    }
+  },
+  "functions": [],
+  "variables": {
+    "eventGridTopicName": "[concat(parameters('projectName'), '-eventGrid')]",
+    "eventSubscriptionName": "[concat(parameters('eventGridSubscriptionName'), '-eventGrid')]"
+  },
+  "resources": [
+    {
+      "name": "[variables('eventGridTopicName')]",
+      "type": "Microsoft.EventGrid/topics",
+      "location": "[parameters('location')]",
+      "apiVersion": "2020-06-01",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.EventGrid/eventSubscriptions",
+      "name": "[variables('eventSubscriptionName')]",
+      "apiVersion": "2020-01-01-preview",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.EventGrid/topics/', variables('eventGridTopicName'))]"
+      ],
+      "properties": {
+        "destination": {
+          "endpointType": "ServiceBusQueue",
+          "properties": {
+            "resourceId": "[resourceId('Microsoft.ServiceBus/namespaces/queues/', parameters('serviceBusNamespaceName'),  parameters('serviceBusQueueName'))]"
+          }
+        },
+        "eventDeliverySchema": "EventGridSchema",
+        "filter": {
+          "isSubjectCaseSensitive": false
+        }
+      }
+    }
+  ],
+  "outputs": {}
+}
