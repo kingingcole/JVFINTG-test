@@ -7,6 +7,9 @@
     },
     "eventGridSubscriptionName": {
       "value": "sub1"
+    },
+    "serviceBusQueueName": {
+      "value": "Q1"
     }
   }
 }

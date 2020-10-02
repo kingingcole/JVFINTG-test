@@ -84,9 +84,6 @@
       "type": "Microsoft.Resources/deployments",
       "resourceGroup": "[variables('linkedTemplates').eventGridService.resourceGroup]",
       "apiVersion": "2019-10-01",
-      "dependsOn": [
-        "[resourceId('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
-      ],
       "properties": {
         "mode": "Incremental",
         "parametersLink": {
