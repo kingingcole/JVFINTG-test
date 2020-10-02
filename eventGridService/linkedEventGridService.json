@@ -23,10 +23,10 @@
       "defaultValue": "[concat(parameters('projectName'), '-eventBus')]"
     },
     "eventGridSubscriptionName": {
-        "type": "string",
-        "metadata": {
-            "description": "description"
-        }
+      "type": "string",
+      "metadata": {
+        "description": "description"
+      }
     }
   },
   "functions": [],
@@ -39,10 +39,7 @@
       "name": "[variables('eventGridTopicName')]",
       "type": "Microsoft.EventGrid/topics",
       "location": "[parameters('location')]",
-      "apiVersion": "2020-06-01",
-      "dependsOn": [
-        "[resourceId('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
-      ]
+      "apiVersion": "2020-06-01"
     },
     {
       "type": "Microsoft.EventGrid/eventSubscriptions",
